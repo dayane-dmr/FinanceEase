@@ -51,6 +51,18 @@ export const columns: ColumnDef<ResponseType>[] = [
     }
   },
   {
+    accessorKey: 'email',
+    header: ({ column }) => (
+      <Button
+        variant='ghost'
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        Email
+        <ArrowUpDown className='ml-2 h-4 w-4' />
+      </Button>
+    )
+  },
+  {
     id:'actions',
     cell:({row}) => <Actions id={row.original.id} />
   },

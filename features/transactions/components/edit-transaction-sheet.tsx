@@ -24,7 +24,6 @@ import {
 
 
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const formSchema = insertAccountSchema.pick({
     name: true,
 });
@@ -33,7 +32,7 @@ type FormValues = z.input<typeof formSchema>;
 
 
 
-export const EditAccountSheet = () => {
+export const EditTransactionSheet = () => {
     const { isOpen, onClose, id } = useOpenAccount();
 
     const [ConfirmDialog, confirm] = useConfirm(

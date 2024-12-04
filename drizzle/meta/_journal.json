@@ -1,12 +1,12 @@
 {
-  "version": "5",
-  "dialect": "pg",
+  "version": "7",
+  "dialect": "postgresql",
   "entries": [
     {
       "idx": 0,
-      "version": "5",
-      "when": 1733181699233,
-      "tag": "0000_shocking_joshua_kane",
+      "version": "7",
+      "when": 1733262501429,
+      "tag": "0000_late_ted_forrester",
       "breakpoints": true
     }
   ]

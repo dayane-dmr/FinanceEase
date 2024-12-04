@@ -13,7 +13,6 @@ import {
 
 
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const formSchema = insertCategorySchema.pick({
     name: true,
 });

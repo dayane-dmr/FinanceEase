@@ -20,14 +20,14 @@ import { columns } from './columns';
 const TransactionsPage = () => {
     const newTransaction = useNewTransaction();
     const deleteTransactions = useBulkDeleteTransactions();
-    const accountsQuery = useGetTransactions();
-    const accounts = accountsQuery.data || [];
+    const transactionsQuery = useGetTransactions();
+    const transactions = transactionsQuery.data || [];
 
     const isDisabled = 
-    accountsQuery.isLoading ||
+    transactionsQuery.isLoading ||
     deleteTransactions.isPending;
 
-    if (accountsQuery.isLoading) {
+    if (transactionsQuery.isLoading) {
         return (
             <div className='max-w-screen-2xl mx-auto w-full pb-10 -mt-24'>
                 <Card className='border-none drop-shadow-sm'>
@@ -58,9 +58,9 @@ const TransactionsPage = () => {
                 </CardHeader>
                 <CardContent>
                     <DataTable
-                        filterKey='name'
+                        filterKey='payee'
                         columns={columns}
-                        data={accounts}
+                        data={transactions}
                         onDelete={(row) => { 
                             const ids = row.map((r) => r.original.id);
                             deleteTransactions.mutate({ ids })

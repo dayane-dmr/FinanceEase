@@ -28,19 +28,19 @@ export const Actions = ({ id }: Props) => {
     );
 
     const deleteMutation = useDeleteAccount(id);
-    const {onOpen } = useOpenAccount();
+    const { onOpen } = useOpenAccount();
 
     const handleDelete = async () => {
         const ok = await confirm()
-        
-        if(ok){
+
+        if (ok) {
             deleteMutation.mutate();
         }
     }
 
     return (
         <>
-            <ConfirmDialog/>
+            <ConfirmDialog />
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button variant='ghost' className='size-8 p-0'>
@@ -49,17 +49,17 @@ export const Actions = ({ id }: Props) => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align='end'>
                     <DropdownMenuItem
-                    disabled={deleteMutation.isPending}
-                    onClick={() => onOpen(id)}
+                        disabled={deleteMutation.isPending}
+                        onClick={() => onOpen(id)}
                     >
-                        <Edit className='size-4'/>
+                        <Edit className='size-4' />
                         Edit
                     </DropdownMenuItem>
                     <DropdownMenuItem
-                    disabled={deleteMutation.isPending}
-                    onClick={handleDelete}
+                        disabled={deleteMutation.isPending}
+                        onClick={handleDelete}
                     >
-                        <Trash className='size-4'/>
+                        <Trash className='size-4' />
                         Delete
                     </DropdownMenuItem>
                 </DropdownMenuContent>

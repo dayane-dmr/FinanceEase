@@ -12,7 +12,7 @@ type Props = {
 };
 
 const options = [
-    'amout',
+    'amount',
     'payee',
     'date',
 ];
@@ -22,16 +22,16 @@ export const TableHeadSelect = ({
     selectedColumns,
     onChange,
 }: Props) => {
-    const currentSelection = selectedColumns[`column_${columnIndex}`]
+    const currentSelect = selectedColumns[`column_${columnIndex}`]
 
     return(
         <Select
-        value={currentSelection || ''}
+        value={currentSelect || ''}
         onValueChange={(value) => onChange(columnIndex, value)}
         >
             <SelectTrigger className={cn(
                 'focus:ring-offset-0 focus:ring-tranparent outline-none border-none bg-transparent capitalize',
-                currentSelection && 'text-blue-500'
+                currentSelect && 'text-blue-500'
             )}>
                 <SelectValue placeholder='Skip' />
             </SelectTrigger>

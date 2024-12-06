@@ -94,11 +94,21 @@ export const ImportCard = ({
                 return acc;
             }, {});
         });
-        const formattedData = arrayOfData.map((item) => ({
-            ...item,
-            amount: convertAmountToMiliunits(parseFloat(item.amount)),
-            date: format(parse(item.date, dateFormat, new Date()), outputFormat)
-        }));
+        const formattedData = arrayOfData.map((item) => {
+            let formattedDate = item.date;
+            
+            if (formattedDate && !isNaN(Date.parse(formattedDate))) {
+                formattedDate = format(parse(item.date, dateFormat, new Date()), outputFormat);
+            } else {
+                formattedDate = null;
+            }
+        
+            return {
+                ...item,
+                amount: convertAmountToMiliunits(parseFloat(item.amount)),
+                date: formattedDate,
+            };
+        });
 
         onSubmit(formattedData);
     };

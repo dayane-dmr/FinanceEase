@@ -108,26 +108,6 @@ const app = new Hono()
         }
     )
     .post(
-        '/',
-        clerkMiddleware(),
-        zValidator('json', insertTransactionSchema.omit({
-            id: true,
-        })),
-        async (c) => {
-            const auth = getAuth(c);
-            const values = c.req.valid('json');
-            if (!auth?.userId) {
-                return c.json({ error: 'Unauthorized' }, 401)
-            }
-
-            const [data] = await db.insert(transactions).values({
-                id: createId(),
-                ...values,
-            }).returning();
-
-            return c.json({ data })
-        })
-    .post(
         '/bulk-create',
         clerkMiddleware(),
         zValidator('json',
@@ -140,22 +120,34 @@ const app = new Hono()
         async (c) => {
             const auth = getAuth(c);
             const values = c.req.valid('json');
-
+    
             if (!auth?.userId) {
                 return c.json({ error: 'Unauthorized' }, 401);
             }
-
-            const data = await db
-                .insert(transactions)
-                .values(
-                    values.map((value) => ({
-                        id: createId(),
-                        ...value,
-                    }))
-                )
-                .returning();
-
-            return c.json({ data });
+    
+            if (!values || values.length === 0) {
+                return c.json({ error: 'No transactions to create' }, 400);
+            }
+    
+            try {
+                const data = await db
+                    .insert(transactions)
+                    .values(
+                        values.map((value) => ({
+                            id: createId(),
+                            ...value,
+                        }))
+                    )
+                    .returning();
+    
+                return c.json({ data });
+            } catch (error: unknown) {
+                if (error instanceof Error) {
+                    return c.json({ error: 'Failed to create transactions', details: error.message }, 500);
+                } else {
+                    return c.json({ error: 'Failed to create transactions', details: 'Unknown error' }, 500);
+                }
+            }
         },
     )
     .post(
@@ -167,34 +159,33 @@ const app = new Hono()
                 ids: z.array(z.string()),
             })
         ),
+
         async (c) => {
             const auth = getAuth(c);
             const values = c.req.valid('json');
-
+        
             if (!auth?.userId) {
                 return c.json({ error: 'Unauthorized' }, 401);
             }
-
-            const transactionsToDelete = db.$with('transactions_to_delete').as(
-                db.select({ id: transactions.id }).from(transactions)
-                    .innerJoin(accounts, eq(transactions.accountId, accounts.id))
-                    .where(and(
-                        inArray(transactions.id, values.ids),
-                        eq(accounts.userId, auth.userId),
-                    )),
-            )
-
+        
+            
+            const transactionsToDelete = await db
+                .select({ id: transactions.id })
+                .from(transactions)
+                .innerJoin(accounts, eq(transactions.accountId, accounts.id))
+                .where(and(
+                    inArray(transactions.id, values.ids),
+                    eq(accounts.userId, auth.userId)
+                ));
+        
+            const transactionIds = transactionsToDelete.map((transaction) => transaction.id);
+        
             const data = await db
-                .with(transactionsToDelete)
                 .delete(transactions)
-                .where(
-                    inArray(transactions.id, sql`select id from ${transactionsToDelete}`)
-                )
-                .returning({
-                    id: transactions.id,
-                });
-
-            return c.json({ data })
+                .where(inArray(transactions.id, transactionIds)) 
+                .returning({ id: transactions.id });
+        
+            return c.json({ data });
         }
     )
     .patch(

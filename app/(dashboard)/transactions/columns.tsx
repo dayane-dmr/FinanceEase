@@ -59,7 +59,7 @@ export const columns: ColumnDef<ResponseType>[] = [
         </Button>
       )
     },
-    cell: ({row}) => {
+    cell: ({ row }) => {
       const date = row.getValue('date') as Date;
 
       return (
@@ -82,12 +82,12 @@ export const columns: ColumnDef<ResponseType>[] = [
         </Button>
       )
     },
-    cell: ({row}) => {
+    cell: ({ row }) => {
       return (
         <CategoryColumn
-        id={row.original.id}
-        category={row.original.category}
-        categoryId={row.original.categoryId}
+          id={row.original.id}
+          category={row.original.category}
+          categoryId={row.original.categoryId}
         />
       )
     }
@@ -119,12 +119,12 @@ export const columns: ColumnDef<ResponseType>[] = [
         </Button>
       )
     },
-    cell: ({row}) => {
+    cell: ({ row }) => {
       const amount = parseFloat(row.getValue('amount'))
       return (
         <Badge
-        variant={amount < 0 ? 'destructive' : 'primary' }
-        className='text-xs font-medium px-3.5 py-2.5'
+          variant={amount < 0 ? 'destructive' : 'primary'}
+          className='text-xs font-medium px-3.5 py-2.5'
 
         >
           {formatCurrency(amount)}
@@ -145,17 +145,17 @@ export const columns: ColumnDef<ResponseType>[] = [
         </Button>
       )
     },
-    cell: ({row}) => {
+    cell: ({ row }) => {
       return (
         <AccountColumn
-        account={row.original.account}
-        accountId={row.original.accountId}
+          account={row.original.account}
+          accountId={row.original.accountId}
         />
       )
     }
   },
   {
-    id:'actions',
-    cell:({row}) => <Actions id={row.original.id} />
+    id: 'actions',
+    cell: ({ row }) => <Actions id={row.original.id} />
   },
 ];

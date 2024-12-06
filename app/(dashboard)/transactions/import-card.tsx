@@ -3,7 +3,7 @@ import { format, parse } from 'date-fns';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { convertAmountToMiliunits } from '@/lib/utils';
+import { convertAmountToMilliunits } from '@/lib/utils';
 
 import { ImportTable } from './import-table';
 
@@ -105,7 +105,7 @@ export const ImportCard = ({
         
             return {
                 ...item,
-                amount: convertAmountToMiliunits(parseFloat(item.amount)),
+                amount: convertAmountToMilliunits(parseFloat(item.amount)),
                 date: formattedDate,
             };
         });

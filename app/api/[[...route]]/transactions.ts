@@ -108,6 +108,33 @@ const app = new Hono()
         }
     )
     .post(
+        '/',
+        clerkMiddleware(),
+        zValidator('json', insertTransactionSchema.omit({ id: true })),
+        async (c) => {
+            const auth = getAuth(c);
+            const values = c.req.valid('json');
+    
+            if (!auth?.userId) {
+                return c.json({ error: 'Unauthorized' }, 401);
+            }
+    
+            try {
+                const data = await db
+                    .insert(transactions)
+                    .values({ id: createId(), ...values })
+                    .returning();
+    
+                return c.json({ data });
+            } catch (error: unknown) {
+                if (error instanceof Error) {
+                    return c.json({ error: 'Failed to create transaction', details: error.message }, 500);
+                }
+                return c.json({ error: 'Failed to create transaction', details: 'Unknown error' }, 500);
+            }
+        }
+    )
+    .post(
         '/bulk-create',
         clerkMiddleware(),
         zValidator('json',

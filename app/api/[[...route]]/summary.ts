@@ -174,11 +174,11 @@ const app = new Hono()
                 .orderBy(transactions.date);
 
 
-            const days = fillMissingDays(
-                activeDays,
-                startDate,
-                endDate,
-            )
+                const days = fillMissingDays(
+                    activeDays.filter(day => day.date !== null) as { date: Date; income: number; expenses: number }[],
+                    startDate,
+                    endDate,
+                );
 
             return c.json({
               data: {

@@ -13,10 +13,6 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet";
 
-
-
-
-
 const routes = [
     {
         href: '/',
@@ -51,12 +47,14 @@ export const Navigation = () => {
     if (isMobile) {
         return (
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
-                <SheetTrigger>
-                    <Button variant='outline'
-                        size='sm'
-                        className="font-normal bg-white/10 hover:bg-white/20 hover:text-white border-none focus-visible:ring-offset-0 focus-visible:ring-transparent outline-none text-white focus:bg-white/30 transition">
-                        <Menu className="size-4" />
-                    </Button>
+                <SheetTrigger asChild>
+                    <div>
+                        <Button variant='outline'
+                            size='sm'
+                            className="font-normal bg-white/10 hover:bg-white/20 hover:text-white border-none focus-visible:ring-offset-0 focus-visible:ring-transparent outline-none text-white focus:bg-white/30 transition">
+                            <Menu className="size-4" />
+                        </Button>
+                    </div>
                 </SheetTrigger>
                 <SheetContent side='left' className="px-2">
                     <nav className="flex flex-col gap-y-2 pt-6 ">
@@ -66,7 +64,7 @@ export const Navigation = () => {
                                 variant={route.href === pathname ? 'secondary' : 'ghost'}
                                 onClick={() => onClick(route.href)}
                                 className="w-full justify-start">
-                                    {route.label}
+                                {route.label}
                             </Button>
                         ))}
                     </nav>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
 import { format, parse } from 'date-fns';
 
@@ -24,6 +25,7 @@ interface SelectedColumnsState {
 type Props = {
     data: string[][];
     onCancel: () => void;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onSubmit: (data: any) => void;
 }
 

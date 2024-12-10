@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Tooltip, RadialBar, RadialBarChart, PieChart, Pie, ResponsiveContainer, CartesianGrid, Legend, Cell } from 'recharts';
 
 import { formatCurrency } from '@/lib/utils';

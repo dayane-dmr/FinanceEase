@@ -1,52 +1,86 @@
 # FinanceEase: Personal Finance Management App 
 
-Welcome to FinanceEase, a personal finance management app designed to help you track, manage, and optimize your finances. Whether you're tracking your income, expenses, or managing multiple accounts, FinanceEase provides a clean, user-friendly interface with a variety of helpful features to simplify your financial journey.
+# Project Overview: FinanceEase
+FinanceEase is a SaaS platform for personal financial management. Its primary focus is to help users track income and expenses, categorize transactions, and import transaction data through CSV uploads. It features a modern design powered by Next.js, React, TailwindCSS, and Shadcn UI, with an efficient backend built using Hono.js and a PostgreSQL database managed by Drizzle ORM.
 
-⭐️
-Key Features:
+# Developed Features
+* Authentication:
 
-📊 Interactive financial dashboard
-🔁 Changeable chart types
-🗓 Account and date filters
-💹 Detailed transactions table
-➕ Form to add transactions
-🧩 Customizable select components
-💵 Income and expense toggle
-🔄 CSV transaction imports
-🔥 API via Hono.js
-🪝 State management via Tanstack React Query
-🔗 Bank account connections with Plaid
-💳 Premium upgrades via Lemon Squeezy
-🔐 Authentication via Clerk (Core 2)
-🗑 Bulk delete and search in transactions
-⚙️ Bank disconnection and subscription management
-👤 User settings customization
-🌐 Built with Next.js
-🎨 Styled with TailwindCSS and Shadcn UI
-💾 PostgreSQL & Drizzle ORM
-🚀 Deployed on Vercel
+Implemented using Clerk, ensuring secure login functionality.
+
+Middleware protects sensitive routes and authenticates users effectively.
 
 
-Project Setup
+* Account Management:
+
+Full CRUD functionality for financial accounts: create, edit, list, and delete.
+
+Dynamic forms with validations using Zod and React Hook Form.
+
+* Transactions:
+
+CSV file upload for importing transactions using react-papaparse.
+
+Interactive tables to display and organize imported transactions.
+
+* UI and Navigation:
+
+A header featuring a dynamic menu, logo, and user button via UserButton.
+
+Stylish pages built with TailwindCSS, including forms, tables, and modals.
+
+* Backend and API:
+
+API built with Hono.js for lightweight and fast backend functionality.
+
+React Query integration for asynchronous state management.
+
+Efficient cache management, automatically invalidating relevant data after mutations.
+
+* Additional Features:
+
+Success and error notifications powered by Sonner.
+
+Modular structure for easy scalability.
+
+
+# Tools and Technologies
+
+* Next.js: Framework for SSR and SSG.
+* React: Core library for the user interface.
+* React Query: Asynchronous state management.
+* Zod: Robust data validation.
+* Clerk: User authentication.
+* Drizzle ORM: PostgreSQL database management.
+* TailwindCSS and Shadcn UI: Styling and UI components.
+* Hono.js: Lightweight backend framework.
+* Challenges Overcome
+* Compatibility issues between libraries (e.g., cuid2 and react-query).
+* Initial configuration of various tools, such as Clerk, Drizzle, and react-query.
+* Implementation of CSV upload and dynamic table rendering.
+
+# Challenges Overcome
+
+Compatibility issues between libraries (e.g., cuid2 and react-query).
+
+Implementation of CSV upload and dynamic table rendering.
+
+
+## Project Setup ##
 To get started with the app, follow these steps:
 
 Clone the repository:
 
-
 git clone https://github.com/DYNDMR/FinanceEase.git
 cd FinanceEase
-
 
 Install dependencies:
 
 npm install
-# or use yarn
-yarn install
+
 Run the development server:
 
-
 npm run dev
-# or
-yarn dev
+
 Open your browser and go to: http://localhost:3000
 
